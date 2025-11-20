@@ -1,0 +1,48 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    padding: 20px;
+    height: 94vh;
+    width: 100vw;
+    background-color: #2c2c6a;
+    gap: 8px;
+}
+
+.home-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Tiêu đề chính */
+.home-header-title {
+    font-size: 24px;
+    color: white;
+    font-weight: 600;
+}
+
+.home-user-info {
+    align-self: center;
+}
+
+.home-menu {
+    width: 100%;
+    max-width: 400px;
+    height: 96vh;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.home-menu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Chia thành 3 cột đều nhau */
+    gap: 15px;
+}
+

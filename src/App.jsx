@@ -1,11 +1,12 @@
 import { useCallback, useState } from 'react'
-import './style.css' // Gọi file CSS đã tạo
 import LoginScreen from './screens/Auth/LoginScreen';
 import HomeScreen from './screens/Main/HomeScreen';
 import ScanMenu from './screens/Scan/ScanMenu';
 import InventoryFormContainer from './screens/Scan/InventoryForm/InventoryFormContainer';
 import InstallationFormContainer from './screens/Scan/InstallationForm/InstallationFormContainer';
-import { ToastMessage } from './components/ToastMessage';
+// import { ToastMessage } from './components/ToastMessage';
+import '../src/App.css';
+import NotFoundScreen from './screens/NotFound/NotFoundScreen';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -46,6 +47,16 @@ function App() {
         return <InventoryFormContainer user={user} onToast={handleToast} onBack={() => handleNavigate('SCAN_MENU')} />;
       case 'INSTALLATION_FORM':
         return <InstallationFormContainer user={user} onToast={handleToast} onBack={() => handleNavigate('SCAN_MENU')} />;
+      case 'SETTINGS':
+        return <NotFoundScreen />;
+      case 'INFORMATION':
+        return <NotFoundScreen />;
+      case 'DASHBOARD':
+        return <NotFoundScreen />;
+      case 'WORKMANAGEMENT':
+        return <NotFoundScreen />;
+      case 'WAREHOUSEMANAGEMENT':
+        return <NotFoundScreen />;
       default:
         return <HomeScreen user={user} onLogout={handleLogout} onNavigate={handleNavigate} />
     }
@@ -53,11 +64,11 @@ function App() {
 
   return (
     <div className='app-wrapper'>
-      <ToastMessage 
+      {/* <ToastMessage 
         message={toast.message}
         type={toast.type}
         onClose={() => setToast({ message: '', type: '' })}
-      />
+      /> */}
       {renderScreen()}
     </div>
   )

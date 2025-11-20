@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { loginUser } from "../../api";
+import '../../style/LoginScreen.css';
 
 const LoginScreen = ({ onLogin, onToast }) => {
     const [username, setUsername] = useState('');
@@ -26,8 +27,8 @@ const LoginScreen = ({ onLogin, onToast }) => {
     const loginClasses = `btn-primary btn-primary-blue ${isLoading ? 'btn-loading' : ''}`;
 
     return (
-        <div className="app-container">
-            <header className="app-heade">
+        <div className="login-container">
+            <header className="app-header">
                 <h1 className="header-title">Đăng nhập hệ thống</h1>
             </header>
             <main className="app-main">
@@ -38,7 +39,7 @@ const LoginScreen = ({ onLogin, onToast }) => {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Input your username"
+                        placeholder="Tên đăng nhập"
                         disabled={isLoading}
                     />
                     <label className="form-label">Mật khẩu</label>
@@ -47,7 +48,7 @@ const LoginScreen = ({ onLogin, onToast }) => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Input your password"
+                        placeholder="Mật khẩu"
                         disabled={isLoading}
                     />
                     <button

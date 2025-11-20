@@ -1,13 +1,16 @@
 import React from "react";
+import '../../style/MenuCard.css';
 
 const MenuCard = ({ icon, title, onClick }) => {
     return (
         <button
-            className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-[1.03] flex flex-col items-center justify-center text-center w-full min-h-[120px] border border-gray-100"
+            className="menu-card"                                           
             onClick={onClick}
         >
-            <span className="text-4xl mb-2">{icon}</span>
-            <h3 className="text-sm font-semibold text-gray-700">{title}</h3>
+            <span className="menu-card__icon">
+                <img src={icon} alt={title} className="menu-card__icon-img" />
+            </span>
+            <h3 className="menu-card__title">{title}</h3>
         </button>
     );
 };
