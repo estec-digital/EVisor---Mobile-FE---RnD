@@ -1,0 +1,49 @@
+.menu-card {
+  background-color: white;
+  padding: 1.5rem 1rem; /* Điều chỉnh padding nếu cần, giữ cho card gọn hơn */
+  border-radius: 1rem;
+  
+  /* shadow-lg - giữ nguyên hoặc điều chỉnh nhẹ */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  
+  transition: all 300ms ease-in-out;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+  width: 100%; 
+  min-height: 120px; /* Vẫn giữ min-height để các card đồng đều */
+  
+  border: 1px solid #e2e8f0; /* border-gray-200, trong thiết kế trông có vẻ nhạt hơn gray-100 */
+  cursor: pointer;
+}
+
+.menu-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow lớn hơn khi hover */
+  transform: translateY(-2px); /* Nhấc nhẹ lên thay vì phóng to để cảm giác hiện đại hơn */
+}
+
+/* Biểu tượng sẽ là img, nên chúng ta sẽ định kiểu cho img bên trong card */
+.menu-card__icon img {
+  width: 50px; /* Điều chỉnh kích thước hình ảnh icon theo thiết kế */
+  height: 50px; /* Đảm bảo hình ảnh không bị méo */
+  object-fit: contain; /* Giữ tỷ lệ hình ảnh */
+  margin-bottom: 0.75rem; /* Khoảng cách giữa icon và title */
+}
+
+.menu-card__title {
+  font-size: 0.95rem; /* text-sm, có thể slightly lớn hơn text-sm thông thường */
+  font-weight: 500; /* font-medium, thiết kế trông không quá đậm */
+  color: #4a5568; /* text-gray-700, hơi nhạt hơn chút so với bản gốc */
+  margin: 0; 
+}
+
+.menu-card__icon-img {
+    width: 48px;  /* Kích thước icon */
+    height: 48px;
+    object-fit: contain; /* Đảm bảo ảnh không bị méo */
+    margin-bottom: 10px;
+}
