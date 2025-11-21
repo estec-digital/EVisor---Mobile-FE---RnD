@@ -13,7 +13,7 @@ export const loginUser = async ({ username, password }) => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     // const response = await axios.post(LOGIN_API, loginPayload);
 
-    if (username === 'tester' && password === '12345678') {
+    if (username === 'tester' && password === '123') {
         return {
             owner: username,
             token: 'mock-jwt-token',

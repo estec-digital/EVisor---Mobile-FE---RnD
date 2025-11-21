@@ -1,10 +1,12 @@
 import React, { useRef } from "react";
 
 const Form1Fields = ({ formData, setFormData }) => {
-    <div className="form-group space-y-4">
-        <label className="form-label block">Mã Code</label>
-        <input className="input-field" type="text" value={formData.code} onChange={(e) => setFormData('code', e.target.value)} />
-    </div>
+    return (
+        <div className="form-group space-y-4">
+            <label className="form-label block">Mã Code</label>
+            <input className="input-field" type="text" value={formData.code} onChange={(e) => setFormData('code', e.target.value)} />
+        </div>
+    );
 };
 
 const Form2Fields = ({ formData, setFormData, onToast }) => {
