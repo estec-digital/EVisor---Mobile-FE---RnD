@@ -1,29 +1,39 @@
 import React from "react";
-import MenuCard from "../../components/Shared/MenuCard";
+import '../../style/ScanMenu.css';
+import ScanIco from '../../assets/icon/scan.png';
+import MenuIco from '../../assets/icon/menu.png';
+import EnteredWarehouseIco from '../../assets/icon/entered_warehouse.png';
+import ExportWarehouseIco from '../../assets/icon/export_warehouse.png';
+import InstallationDeviceIco from '../../assets/icon/installation_device.png';
+import GotoIco from '../../assets/icon/goto.png';
 
 const ScanMenu = ({ onNavigate }) => {
+    const renderCard = (image, title, actionKey) => (
+        <button className="scan-card" onClick={() => onNavigate(actionKey)}>
+            <img src={image} alt={title} className="scan-card-img" />
+            <span className="scan-card-text">{title}</span>
+            <div className="scan-card-arrow">
+                <img src={GotoIco} alt="Go" className="go-back-img" />
+            </div>
+        </button>
+    );
+
     return (
-        <div className="app-container">
-            <header className="app-header">
-                <h1 className="header-title">Chọn Loại Hoạt Động</h1>
-            </header>
-            <main className="app-main">
-                <div className="menu-grid">
-                    <MenuCard 
-                        icon="📦"
-                        title="Nhập Kho"
-                        onClick={() => onNavigate('INVENTORY_FORM')}
-                    />
-                    <MenuCard 
-                        icon="🛠️"
-                        title="Lắp Đặt"
-                        onClick={() => onNavigate('INSTALLATION_FORM')}
-                    />
+        <div className="scan-container">
+            <header className="scan-header">
+                <div className="scan-header-left">
+                    <img src={ScanIco} alt="Scan" className="scan-header-icon" />
+                    <h1 className="scan-title">Scan / Nhập Liệu</h1>
                 </div>
+                <button className="scan-menu-btn" onClick={() => onNavigate('HOME')}>
+                    <img src={MenuIco} alt="Menu" className="scan-menu-icon" />
+                </button>
+            </header>
+            <main className="scan-list">
+                {renderCard(EnteredWarehouseIco, "Nhập Kho", 'INVENTORY_FORM')}
+                {renderCard(ExportWarehouseIco, "Xuất Kho", 'EXPORT_FORM')}
+                {renderCard(InstallationDeviceIco, "Lắp Đặt", 'INSTALLATION_FORM')}
             </main>
-            <button className="btn-secondary" onClick={() => onNavigate('HOME')}>
-                &larr; Quay lại menu Chính
-            </button>
         </div>
     );
 };

@@ -1,11 +1,8 @@
 .menu-card {
   background-color: white;
-  padding: 1.5rem 1rem; /* Điều chỉnh padding nếu cần, giữ cho card gọn hơn */
+  padding: 1.5rem 1rem;
   border-radius: 1rem;
-  
-  /* shadow-lg - giữ nguyên hoặc điều chỉnh nhẹ */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  
   transition: all 300ms ease-in-out;
   
   display: flex;

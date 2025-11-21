@@ -53,9 +53,9 @@ function App() {
         return <NotFoundScreen />;
       case 'DASHBOARD':
         return <NotFoundScreen />;
-      case 'WORKMANAGEMENT':
+      case 'WORK_MANAGEMENT':
         return <NotFoundScreen />;
-      case 'WAREHOUSEMANAGEMENT':
+      case 'WAREHOUSE_MANAGEMENT':
         return <NotFoundScreen />;
       default:
         return <HomeScreen user={user} onLogout={handleLogout} onNavigate={handleNavigate} />
