@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
+import { SubmitPayload, InstallationForm, BaseProps  } from "../../../types/common";
 import { submitFormData } from "../../../api";
-import { BaseProps } from "../../../types/common";
 
 interface Step2InputInstallationProps extends BaseProps {
     projectCode: string;
 }
 
-const Step2Input: React.FC<Step2InputInstallationProps> = ({ user, projectCode, onBack, onToast }) => {
+const Step2Input: React.FC<Step2InputInstallationProps> = ({ projectCode, onBack, onToast }) => {
     // Form Data
     const [location, setLocation] = useState<string>('');
     const [cabinetNo, setCabinetNo] = useState<string>('');
@@ -23,7 +23,6 @@ const Step2Input: React.FC<Step2InputInstallationProps> = ({ user, projectCode, 
             const scannedValue = target.value.trim();
             if (scannedValue) {
                 setCode(scannedValue);
-                onToast(`Đã quét code: ${scannedValue}`, 'success');
             }
             if ((e as React.KeyboardEvent).key === 'Enter') e.preventDefault();
         }
@@ -38,19 +37,32 @@ const Step2Input: React.FC<Step2InputInstallationProps> = ({ user, projectCode, 
         
         setStatus('loading');
         try {
-            const payload = {
-                projectCode,
-                location,
+            // Create InstallationForm payload
+            const formPayload: InstallationForm = {
+                project_code: projectCode,
+                location: location,
                 cabinet_no: cabinetNo,
-                owner: user?.owner
+                code: code
             };
-            await submitFormData({ data: payload, formType: 'INSTALLATION' });
+            // Create request_id and SubmitPayload
+            const request_id = "evisor-" + Date.now();
+            const submitData: SubmitPayload = {
+                request_id: request_id,
+                form: formPayload
+            };
+
+            await submitFormData({ data: submitData, formType: 'INSTALLATION' });
+
             setStatus('success');
-            setMessage('Lưu dữ liệu lắp đặt thành công');
+            const successMessage = 'Lưu dữ liệu lắp đặt thành công';
+            setMessage(successMessage);
+            onToast(successMessage, 'success');
         } catch (error) {
             console.log(error);
             setStatus('error');
-            setMessage('Lỗi: Dữ liệu có thể đã tồn tại hoặc lỗi mạng');
+            const errorMessage = (error as Error).message || 'Lỗi: Dữ liệu có thể đã tồn tại hoặc lỗi mạng';
+            setMessage(errorMessage);
+            onToast(errorMessage, 'error');
         }
     };
 

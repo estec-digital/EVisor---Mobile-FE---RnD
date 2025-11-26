@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import '../../../style/Step3Input.css';
+import { BaseProps, InventoryCodeForm, InventoryPartNoForm, SubmitPayload, SubmitFormType } from "../../../types/common";
 import { submitFormData } from "../../../api";
-import { BaseProps } from "../../../types/common";
 
 interface Step3InputProps extends BaseProps {
     projectCode: string;
@@ -26,7 +26,6 @@ const Step3Input: React.FC<Step3InputProps> = ({ projectCode, po, onBack, user, 
             const scannedValue = target.value.trim();
             if (scannedValue && scannedValue.length > 5) {
                 setSeriNumber(scannedValue);
-                onToast(`Mã Seri đã được quét: ${scannedValue}`, 'success');
             }
             if ((e as React.KeyboardEvent).key === 'Enter') {
                 e.preventDefault();
@@ -35,30 +34,69 @@ const Step3Input: React.FC<Step3InputProps> = ({ projectCode, po, onBack, user, 
     }
 
     const handleSubmit = async () => {
+        // Validate
+        if (formType === 1) {
+            if (!code) {
+                onToast("Vui lòng nhập Mã Code.", 'error');
+                return;
+            }
+        } else if (formType === 2) {
+            if (!partNumber || !seriNumber) {
+                onToast("Vui lòng nhập đầy đủ Part Number và Seri Number.", 'error');
+                return;
+            }
+        } else {
+            onToast("Loại Form không hợp lệ.", 'error');
+            return;
+        }
         setStatus('loading');
         try {
-            const payload = {
-                projectCode,
-                po,
-                type: formType === 1 ? 'CODE' : 'PART_SERI',
-                data: formType === 1 ? { code } : { partNumber, seriNumber },
-                owner: user?.owner
+            let formPayload: InventoryCodeForm | InventoryPartNoForm;
+            // Construct Form Payload (follow InventoryCodeForm or InventoryPartNoForm)
+            if (formType === 1) {
+                formPayload = {
+                    project_code: projectCode,
+                    po: po,
+                    code: code
+                } as InventoryCodeForm;
+            } else {
+                formPayload = {
+                    project_code: projectCode,
+                    po: po,
+                    part_no: partNumber,
+                    seri_no: seriNumber
+                } as InventoryPartNoForm;
+            }
+            // Construct SubmitPayload
+            const request_id = "evisor-" + Date.now();
+            const submitData: SubmitPayload = {
+                request_id: request_id,
+                form: formPayload
             };
-            await submitFormData({ data: payload, formType });
+            // Call API
+            await submitFormData({ data: submitData, formType: formType as SubmitFormType });
             // Resolve success
             setStatus('success');
-            setMessage('Gửi dữ liệu thành công');
+            const successMessage = 'Gửi dữ liệu thành công';
+            setMessage(successMessage);
+            onToast(successMessage, 'success');
         } catch (error) {
             console.log(error);
             setStatus('error');
-            setMessage('Dữ liệu đã tồn tại trong hệ thống');
+            const errorMessage = (error as Error).message || 'Lỗi: Dữ liệu có thể đã tồn tại hoặc lỗi mạng';
+            setMessage(errorMessage);
+            onToast(errorMessage, 'error');
         }
     };
 
     const resetForm = () => {
         setStatus('idle');
         setSeriNumber('');
-    }
+        setCode('');
+        setTimeout(() => {
+            if (seriInputRef.current && formType === 2) seriInputRef.current.focus();
+        }, 100);
+    };
 
     return (
         <div style={{ position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
