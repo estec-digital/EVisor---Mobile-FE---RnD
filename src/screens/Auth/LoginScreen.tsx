@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react"
-import { loginUser } from "../../api";
 import '../../style/LoginScreen.css';
 import { ToastType, User } from "../../types/common";
+import { loginUser } from "../../api";
 
 interface LoginScreenProps {
     onLogin: (user: User) => void;
