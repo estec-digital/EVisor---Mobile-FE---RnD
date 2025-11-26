@@ -1,5 +1,6 @@
 export interface User {
     owner: string;
+    token: string;
 }
 // Define props for navigation/notification function
 export interface BaseProps {
@@ -28,4 +29,42 @@ export type ScreenType =
     | 'WORK_MANAGEMENT'
     | 'WAREHOUSE_MANAGEMENT'
     | 'INFO';
-
+// Data type for list (Project, PO)
+export interface SelectOption {
+    label: string;
+    value: string;
+}
+// Payload for loginUser function
+export interface LoginPayload {
+    username: string;
+    password: string;
+}
+// Type for formType parameter in submitFormData
+export type SubmitFormType = 1 | 2 | 'INSTALLATION';
+// Payload for Inventory Code Form (Form 1)
+export interface InventoryCodeForm {
+    project_code: string;
+    po: string;
+    code: string;
+}
+// Payload for Inventory PartNumber/SeriNum Form (Form 2)
+export interface InventoryPartNoForm {
+    project_code: string;
+    po: string;
+    part_no: string;
+    seri_no: string;
+}
+// Payload for Installation Form ('INSTALLATION' form)
+export interface InstallationForm {
+    project_code: string;
+    location: string;
+    cabinet_no: string;
+    code: string;
+}
+// Union for all form constructor
+export type AllFormTypes = InventoryCodeForm | InventoryPartNoForm | InstallationForm;
+// Payload complete constructor send to API
+export interface SubmitPayload {
+    request_id: string;
+    form: AllFormTypes;
+} 
